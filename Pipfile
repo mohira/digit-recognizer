@@ -18,9 +18,9 @@ isort = "*"
 yapf = "*"
 tqdm = "*"
 kaggle = "*"
+nn = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.7"
-

@@ -3,6 +3,7 @@ import torch
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 
+from code.my_simple_net import MySimpleNet
 from code.train_dataset import TrainingDataset
 
 
@@ -25,6 +26,9 @@ def main():
 
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     valid_loader = DataLoader(valid_dataset, batch_size=BATCH_SIZE, shuffle=False)
+
+    # 2. モデル(ネットワーク)
+    model = MySimpleNet()
 
 
 if __name__ == '__main__':
