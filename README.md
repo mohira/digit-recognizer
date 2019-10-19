@@ -10,8 +10,9 @@
 kaggle competitions download -c digit-recognizer
 unzip digit-recognizer.zip
 
-mkdir input
 mv train.csv input/
 mv test.csv input/
 mv sample_submission.csv input/
+
+rm digit-recognizer.zip
 ```
