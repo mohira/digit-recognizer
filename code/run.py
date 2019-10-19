@@ -9,8 +9,9 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from code.data_path import DataPath
-from code.my_dataset import TrainDataset, TestDataset
+from code.my_dataset import TrainDataset, TestDataset, TrainDatasetForCNN, TestDatasetForCNN
 from code.my_simple_net import MySimpleNet
+from code.simple_cnn import SimpleCNN
 
 
 def prepare_data_loaders(batch_size):
@@ -24,9 +25,11 @@ def prepare_data_loaders(batch_size):
                                                           train_size=0.8,
                                                           random_state=0)
     train_dataset = TrainDataset(X_train, y_train)
+    train_dataset = TrainDatasetForCNN(X_train, y_train)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
     valid_dataset = TrainDataset(X_valid, y_valid)
+    valid_dataset = TrainDatasetForCNN(X_valid, y_valid)
     valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False)
 
     return train_loader, valid_loader
@@ -116,6 +119,7 @@ def main():
 
     # 2. モデル(ネットワーク)
     model: nn.Module = MySimpleNet()
+    model: nn.Module = SimpleCNN()
 
     # 最適化アルゴリズムと損失関数
     optimizer = optim.Adam(model.parameters())
@@ -133,6 +137,8 @@ def main():
     X_test = df_test.values
 
     test_dataset = TestDataset(X_test)
+    test_dataset = TestDatasetForCNN(X_test)
+
     test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
     predictions = make_predictions(model, test_loader)
